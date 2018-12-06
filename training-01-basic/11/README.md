@@ -1,9 +1,8 @@
 # 과제 11
+다음 크리스마스까지 남은 일 수를 계산하는 자바스크립트 함수를 개발하세요. 
 
-Write a JavaScript program to calculate number of days left until next Christmas.
-
-Expected format:
-X days left until Y Christmas
+예상 형식:
+y 크리스마스까지 x 일 남음
 
 참고:
 [Date 객체](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Date)
@@ -12,5 +11,5 @@ X days left until Y Christmas
 
 ```javascript
 console.log(daysUntilChristmas(date));
-// 154 days left until 2018 Christmas
+// 2019 크리스마스까지 159 일 남음
 ```

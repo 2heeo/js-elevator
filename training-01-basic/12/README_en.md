@@ -1,6 +1,6 @@
 # 과제 12
 
-숫자가 대칭인지 아닌지를 반환하는 자바스크립트 함수를 개발하세요.
+Write a JavaScript program that takes a number as an argument and returns true or false depending on whether the number is symmetrical or not.
 
 ## Example
 

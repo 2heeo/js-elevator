@@ -7,7 +7,7 @@ x축/y축 그래프의 4개의 값을 받고 형성되는 두 점의 각 숫자�
 
 - 소수점 이하 두 자리로 고정하세요. (예제: 2.34).
 
-## Example
+## 예제
 
 ```javascript
 console.log(shortestDistance('1,1,2,1'));
