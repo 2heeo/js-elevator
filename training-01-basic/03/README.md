@@ -23,7 +23,7 @@ console.log(humanizeFormat(8));
 // 8th
 console.log(humanizeFormat(101));
 // 101st
-console.log(humanizeFormat(101));
+console.log(humanizeFormat(111));
 // 111th
 console.log(humanizeFormat(121));
 // 121st
