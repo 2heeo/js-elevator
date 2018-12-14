@@ -59,6 +59,10 @@ td {
   border-right: 1px solid #C1C3D1;
 }
 
+td:last-child {
+  border-right: none;
+}
+
 tr:nth-child(odd) td {
   background:#EBEBEB;
 }
@@ -68,7 +72,6 @@ tr:nth-child(odd) td {
   border-bottom-right-radius:10px;
   font-weight: bold;
   color: #000;
-  border-right: none;
 }
 
 .txt_emph {
