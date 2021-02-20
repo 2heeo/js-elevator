@@ -1,11 +1,7 @@
 import Elevator from './modules/Elevator';
 import Person from './modules/Person';
-// import {add, subtract} from './modules/Util';
 
-
-// add(1,2);
-// subtract(5,2);
-
+// 다른 방식
 // const Elevator = require('./modules/Elevator');
 // const Person = require('./modules/Person');
 

@@ -23,10 +23,14 @@ export default class Elevator {
     this.floors[floor].querySelector('.lift_hole').appendChild(this.elevator);
   }
 
-  // 엘레베이터에 사람 태우기
+  // 엘레베이터에 사람 태우기(층에서 사람잡지말고 lift_holes 안에 있는 애들은 빼줘야함)
   pickUpPerson(arrivedFloorIdx, elevator) {
     const arrivedFloor = this.floors[arrivedFloorIdx];
-    let waitingPersonList = arrivedFloor.querySelectorAll('.person');
+    let waitingPersonList = arrivedFloor.querySelectorAll('.person'); // TODO- 귀신 없애기
+    // 엘레베이터가 도착한 순간에 이렇게 arrivedFloor에 있는 사람들을 선택하면 어떻게 될까요?
+    // 엘레베이터도 층에 포함이 되어 있습니다. 그렇다는 말은 해당 층에서 대기중인 사람 + 엘레베이터 안에 있던 사람이 더해진 결과가 여기에서 잡히게 됩니다. 이것이 귀신의 정체입니다.
+
+
     let innerPersonList = elevator.querySelectorAll('.person');
     let numOfInnerPerson = innerPersonList.length;
     let numOfWaitingPerson = waitingPersonList.length;
@@ -38,17 +42,13 @@ export default class Elevator {
     if(numOfInnerPerson + numOfWaitingPerson > this.NUM_OF_AVAILABLE) {
       console.log('===================================');
       console.log('최대 탑승 가능 인원 수 초과');
-      console.log(numOfInnerPerson);
-      console.log(numOfWaitingPerson);
       console.log('===================================');
     } else {      
       let temp = [];
       // 타고 있던 사람들 다 내리고, 기다리던 사람들 다 태우기      
       temp = innerPersonList;
       innerPersonList = waitingPersonList;
-      waitingPersonList = [];
       waitingPersonList = temp;
-      temp = [];
 
       innerPersonList.forEach(i => {
         elevator.appendChild(i);  
@@ -57,11 +57,9 @@ export default class Elevator {
       waitingPersonList.forEach(w => {
         arrivedFloor.appendChild(w);
       });      
-      waitingPersonList = [];
 
       console.log('===================================');
       console.log(`${numOfInnerPerson}명이 내리고, ${numOfWaitingPerson}명이 탔음`);
-      console.log(waitingPersonList);
       console.log('===================================');
     }
   }
