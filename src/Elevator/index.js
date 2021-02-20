@@ -9,7 +9,7 @@
   * @param {} asIsFloorIdx - 현재 엘레베이터가있는 층의 실제 인덱스
  */
 
-let floors = [...document.getElementsByClassName('building')[0].getElementsByTagName('li')];
+let floors = [...document.getElementsByClassName('building')[0].getElementsByTagName('li')].slice().reverse();
 let buttons = [...document.getElementsByClassName('elevator_floor_buttons')[0].getElementsByTagName('li')];
 
 const elevator = document.querySelector('.elevator');
@@ -17,9 +17,8 @@ const movedElevator = document.importNode(elevator,true);
 
 buttons.forEach((b, idx) => {
   b.addEventListener('click', (event) => {
-    const textFloor = document.querySelector('.current_floor');
     const clickedBtn = event.target;
-    const clickedFloor = clickedBtn.innerText;
+    const clickedFloor = Number.parseInt(clickedBtn.innerText);
     const idxOfclickedBtn = idx;
     
     // 누른 버튼 color
@@ -33,41 +32,57 @@ buttons.forEach((b, idx) => {
   });
 });
 
+const findElevator = (() => {
+  let liftHoles = [...document.getElementsByClassName('building')[0].getElementsByClassName('lift_hole')];
+  liftHoles = liftHoles.slice().reverse();
 
-  const moveElevator = ((clickdFloor, idxOfclickedBtn) => {
-  
-    // const asIsFloorIdx = floors.indexOf(elevator.closest('li'));
-    // let count = 3;
-  let count = 3;
+  let currentElevatorFloor = 0;
 
-  if(count > idxOfclickedBtn) {
-    const moveUp = setInterval(() => {
-      console.log(`count : ${count}, 누른층 : ${idxOfclickedBtn}`);
+  liftHoles.forEach((l, idx) => {
+    if(l.querySelector('.elevator')){
+      console.log(`엘레베이터는 현재 ${idx+1}층에 있음`);
+      currentElevatorFloor = idx;
+    } else {
+      // console.log('현재 층에 엘레베이터가 없음 ');
+    }
+  });
+  return currentElevatorFloor;
+});
 
-      elevator.remove();
-      floors[count].querySelector('.lift_hole').append(movedElevator)
-      
-      if(count === idxOfclickedBtn){
-        clearInterval(moveUp);
-        console.log(`[도착!!!] count : ${count}, 누른층 : ${idxOfclickedBtn}`);
-      }  
-      count--;
-      }, 700);
-  } else if (count < idxOfclickedBtn) {
+const moveElevator = ((clickdFloor, idxOfclickedBtn) => {
+  const textFloor = document.querySelector('.current_floor');
+  let count = findElevator();
+
+  if(count >= clickdFloor) {
     const moveDown = setInterval(() => {
-      console.log(`count : ${count}, 누른층 : ${idxOfclickedBtn}`);
+      console.log(`count : ${count}, 누른층 : ${clickdFloor}`);
 
       elevator.remove();
-      floors[count].querySelector('.lift_hole').append(movedElevator)
-      
-      if(count === idxOfclickedBtn){        
-        console.log(`[도착!!!]  count : ${count}, 누른층 : ${idxOfclickedBtn}`);
+      floors[count].querySelector('.lift_hole').append(movedElevator);
+      textFloor.innerHTML = `${count+1}층`;
+  
+      if(count+1 === clickdFloor){
+        console.log(`[도착!!!] count : ${count}, 누른층 : ${clickdFloor}`);
         clearInterval(moveDown);
       }  
-      count++;
+      count--;
+    }, 700);
+  } else if (count < clickdFloor) {
+      const moveUp = setInterval(() => {
+        console.log(`count : ${count}, 누른층 : ${clickdFloor}`);
+
+        elevator.remove();
+        floors[count].querySelector('.lift_hole').append(movedElevator);
+      
+        if(count+1 === clickdFloor){        
+          textFloor.innerHTML = `${count}층`;
+          console.log(`[도착!!!]  count : ${count}, 누른층 : ${clickdFloor}`);
+          clearInterval(moveUp);
+        }  
+        count++;
+        textFloor.innerHTML = `${count}층`;
     }, 700);
   } else {
-    console.log('현재 층에 엘레베이터가 있음 또는 에러');
-  }
-  
+    console.log('현재 층에 엘레베이터가 있음');
+  }  
 });
