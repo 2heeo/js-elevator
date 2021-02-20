@@ -10,7 +10,7 @@ ul, li {
   float:left;
 }
 .building li {
-  width: 200px;
+  width: 300px;
   font-size: 0;
   border-bottom: 3px double black;
 }
